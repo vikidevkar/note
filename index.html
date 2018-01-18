@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Visdown - Markdown for Visualisation</title>
+  <meta name="description" content="Create Simple Visualisation Charts with Markdown">
+
+  <script src="lib/vega.min.js"></script>
+  <script src="lib/vega-lite.min.js"></script>
+  <script src="lib/vega-embed.min.js"></script>
+  <script src="lib/marked.min.js"></script>
+  <script src="lib/yaml.min.js"></script>
+
+  <style>
+    #visdown-output {max-width: 800px; margin: 0 auto;}
+    #visdown-input {display: none;}
+  </style>  
+</head>
+<body bgcolor="#ffffe6">
+    <h1 style="font-family: montserrat;color: darkgreen;text-align: center"><em>Money Matters</em></h1>
+<div id="visdown-input">  
+  
+    
+```vis
+height: 650
+width: 800
+data: 
+  url: data/notes.csv
+mark: point
+encoding:
+  x: 
+    field: year
+    type: N
+    axis:
+      grid: true
+  y:
+    field: money
+    type: Q
+    scale:
+      type: log
+    axis:
+      grid: false
+  color:
+    field: denom
+    type: N
+  size:
+    field: number
+    type: Q
+  opacity:
+    value: 1
+ 
+```
+
+ 
+    
+    
+```vis
+width: 600
+data:
+  url: data/notes.csv
+layer: 
+- mark: area
+  encoding:
+   x:
+    field: year
+    type: N
+   y:
+    aggregate: sum
+    field: money
+    type: Q
+    axis:
+     orient: left
+- mark: line
+  encoding:
+   x:
+    field: year
+    type: N
+   y: 
+    aggregate: sum
+    field: number
+    type: Q
+    axis:
+     orient: right
+resolve:
+  scale:
+    y: independent
+    
+```
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+</div>
+<div id="visdown-output"></div>
+<script src="visdown.js"></script>
+
+</body>
+</html>
